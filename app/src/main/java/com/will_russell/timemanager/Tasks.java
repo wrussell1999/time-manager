@@ -40,7 +40,7 @@ public class Tasks extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    public ArrayList<Task> tasks = new ArrayList<Task>();
+    public static ArrayList<Task> tasks = new ArrayList<Task>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +68,15 @@ public class Tasks extends AppCompatActivity {
                 addTaskIntent();
             }
         });
-
     }
 
     private void addTaskIntent() {
         Intent intent = new Intent(this, AddTask.class);
         startActivity(intent);
+    }
+
+    private void buildView() {
+
     }
 
     @Override
@@ -145,7 +148,16 @@ public class Tasks extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = new TaskFragment();
+                    break;
+                case 1:
+                    fragment = new DetailsFragment();
+                    break;
+            }
+            return fragment;
         }
 
         @Override
