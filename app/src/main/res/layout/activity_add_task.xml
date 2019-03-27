@@ -14,8 +14,8 @@
             android:id="@+id/name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:hint="Name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/task_name_title"
             android:layout_margin="8dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -30,8 +30,8 @@
             android:id="@+id/duration_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:hint="Length (minutes)"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/task_length_title"
             android:layout_margin="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
