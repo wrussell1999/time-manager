@@ -17,6 +17,7 @@ import com.will_russell.timemanager.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -25,26 +26,18 @@ import java.util.List;
  */
 public class TaskFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
     public TaskFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static TaskFragment newInstance(int columnCount) {
+    public static TaskFragment newInstance() {
         TaskFragment fragment = new TaskFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -80,12 +73,6 @@ public class TaskFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
     }
 
     @Override

@@ -151,10 +151,10 @@ public class Tasks extends AppCompatActivity {
             Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = new TaskFragment();
+                    fragment = TaskFragment.newInstance();
                     break;
                 case 1:
-                    fragment = new DetailsFragment();
+                    fragment = DetailsFragment.newInstance();
                     break;
             }
             return fragment;
