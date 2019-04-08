@@ -9,4 +9,6 @@
     <string name="task_name_title">Task</string>
     <string name="task_length_title">Length (minutes)</string>
     <string name="time_to_leave">Time to leave</string>
+
+    <string name="placeholder_total_time">Total time for tasks: 0 minutes</string>
 </resources>

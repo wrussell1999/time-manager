@@ -8,15 +8,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/connection_button"
+        android:orientation="vertical">
+        <TimePicker
+            android:id="@+id/time_to_leave_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+        </TimePicker>
+
+        <TextView
+            android:id="@+id/time_to_start_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Button.IconButton"
-            app:icon="@drawable/time_white"
-            android:text="@string/time_to_leave"
-            android:onClick="showTimePickerDialog"/>
+            android:layout_margin="16dp"
+            android:textColor="@color/textColor"/>
+        <TextView
+            android:id="@+id/total_time_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/textColor"
+            android:text="@string/placeholder_total_time"/>
     </LinearLayout>
 </FrameLayout>
