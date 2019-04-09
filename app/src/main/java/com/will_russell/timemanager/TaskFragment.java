@@ -12,11 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.will_russell.timemanager.dummy.DummyContent;
-import com.will_russell.timemanager.dummy.DummyContent.DummyItem;
-
-import java.util.List;
-
 
 /**
  * A fragment representing a list of Items.
@@ -26,16 +21,12 @@ import java.util.List;
  */
 public class TaskFragment extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
 
-    public TaskFragment() {
-    }
+    public TaskFragment() {}
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static TaskFragment newInstance() {
         TaskFragment fragment = new TaskFragment();
         return fragment;
@@ -44,10 +35,6 @@ public class TaskFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -63,7 +50,7 @@ public class TaskFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new ItemRecyclerViewAdapter(mListener));
         }
         return view;
     }
@@ -80,18 +67,8 @@ public class TaskFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Task item);
     }
 }

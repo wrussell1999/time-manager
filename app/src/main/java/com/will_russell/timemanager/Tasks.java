@@ -58,21 +58,16 @@ public class Tasks extends AppCompatActivity {
             }
         });
 
-        Task.tasksList.add(new Task("Shopping", 20));
+        Task.tasksList.add(new Task("Washing", 20));
         Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Shopping", 0));
-
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
     }
 
     private void addTaskIntent() {
         Intent intent = new Intent(this, AddTask.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
-
-    private void buildView() {
-
     }
 
     @Override
@@ -84,22 +79,14 @@ public class Tasks extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public static class PlaceholderFragment extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
