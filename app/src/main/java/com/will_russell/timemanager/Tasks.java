@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Tasks extends AppCompatActivity {
 
@@ -67,6 +68,8 @@ public class Tasks extends AppCompatActivity {
         });
 
     }
+
+
 
     private void addTaskIntent() {
         Intent intent = new Intent(this, AddTask.class);

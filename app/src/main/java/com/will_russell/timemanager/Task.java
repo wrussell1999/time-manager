@@ -1,9 +1,13 @@
 package com.will_russell.timemanager;
 
+import java.util.ArrayList;
+
 public class Task {
 
     private String name;
     private Integer length;
+
+    public static ArrayList<Task> tasksList = new ArrayList<>();
 
     public Task(String name, Integer length) {
         this.name = name;

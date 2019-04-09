@@ -1,43 +1,23 @@
 package com.will_russell.timemanager;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.os.Handler;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.google.android.material.button.MaterialButton;
-
-import java.util.Calendar;
-
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetailsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
     private OnFragmentInteractionListener mListener;
 
     private Handler uiHandler;
     private TextView startView;
     private TextView totalTimeView;
+    private TextView totalTasksView;
 
     public DetailsFragment() {}
 
@@ -56,36 +36,20 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
         TimePicker timePicker = view.findViewById(R.id.time_to_leave_picker);
+        timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(this);
 
         startView = view.findViewById(R.id.time_to_start_view);
         totalTimeView = view.findViewById(R.id.total_time_view);
+        totalTasksView = view.findViewById(R.id.total_tasks_view);
         uiHandler = new Handler();
         return view;
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         uiHandler.post(new UIThread(hourOfDay, minute));
     }
-
     class UIThread implements Runnable {
         private int hourOfDay;
         private int minute;
@@ -99,13 +63,24 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
         public void run() {
             try {
                 String startTime = "Start time: " + hourOfDay + ":" + minute;
-                System.out.println(startTime);
                 startView.setText(startTime);
                 //totalTimeView.setText();
+                String totalTasks = getResources().getString(R.string.placeholder_tasks_total) + Task.tasksList.size();
+                totalTasksView.setText(totalTasks);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     /**
