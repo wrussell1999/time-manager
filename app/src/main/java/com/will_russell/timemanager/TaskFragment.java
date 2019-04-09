@@ -14,13 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class TaskFragment extends Fragment {
 
     private int mColumnCount = 1;
@@ -51,9 +44,6 @@ public class TaskFragment extends Fragment {
             if (mColumnCount <= 1) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(context);
                         recyclerView.setLayoutManager(layoutManager);
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                        layoutManager.getOrientation());
-                recyclerView.addItemDecoration(dividerItemDecoration);
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
@@ -77,7 +67,6 @@ public class TaskFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Task item);
     }
 }
