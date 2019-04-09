@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class DetailsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
     private OnFragmentInteractionListener mListener;
@@ -52,6 +56,7 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         uiHandler.post(new UIThread(hourOfDay, minute));
+
     }
 
     class UIThread implements Runnable {
@@ -79,37 +84,21 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
 
         private String calculateStartTime(int hour, int minute) {
             int totalLength = Task.getTotalLength();
-            String startTime = "";
-
-            int tempLength = totalLength;
-            while(tempLength > 60) {
-                hour -= 1;
-                tempLength -= 60;
-            }
-
-            int minDiff = minute - totalLength;
-            if (minDiff < 0) {
-                minDiff = 60 - (totalLength - minute);
-                if (minDiff < 0) {
-                    minDiff = 60 + minDiff;
-                    hour -= 1;
-                }
-            }
-            if (hour < 0) {
-                hour = 24 + hour;
-            }
-
-            startTime = hour + ":" + minDiff;
-            if (hour < 10 && minDiff < 10) {
-                startTime = "0" + hour + ":0" + minDiff;
+            String startTime = hour + ":" + minute;
+            if (hour < 10 && minute< 10) {
+                startTime = "0" + hour + ":0" + minute;
             }
             else if (hour < 10) {
-                startTime = "0" + hour + ":" + minDiff;
+                startTime = "0" + hour + ":" + minute;
             }
-            else if (minDiff < 10) {
-                startTime = hour + ":0" + minDiff;
+            else if (minute < 10) {
+                startTime = hour + ":0" + minute;
             }
-            return startTime;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime dateTime = LocalTime.parse(startTime, formatter);
+            dateTime = dateTime.minusMinutes(totalLength);
+            String finalStartTime = dateTime.format(formatter);
+            return finalStartTime;
         }
 
     }
