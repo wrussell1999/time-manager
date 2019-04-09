@@ -67,6 +67,11 @@ public class Tasks extends AppCompatActivity {
             }
         });
 
+        Task.tasksList.add(new Task("Shopping", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Shopping", 0));
+
     }
 
 

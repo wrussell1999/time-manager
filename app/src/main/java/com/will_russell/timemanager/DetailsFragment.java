@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class DetailsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
     private OnFragmentInteractionListener mListener;
@@ -62,15 +63,52 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
         @Override
         public void run() {
             try {
-                String startTime = "Start time: " + hourOfDay + ":" + minute;
+                String startTime = getResources().getString(R.string.placeholder_start_time) + calculateStartTime(hourOfDay, minute);
                 startView.setText(startTime);
-                //totalTimeView.setText();
+                String totalTime = getResources().getString(R.string.placeholder_total_time) + Task.getTotalLength()  + getResources().getString(R.string.placeholder_minute);
+                totalTimeView.setText(totalTime);
                 String totalTasks = getResources().getString(R.string.placeholder_tasks_total) + Task.tasksList.size();
                 totalTasksView.setText(totalTasks);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        private String calculateStartTime(int hour, int minute) {
+            int totalLength = Task.getTotalLength();
+            String startTime = "";
+
+            int tempLength = totalLength;
+            while(tempLength > 60) {
+                hour -= 1;
+                tempLength -= 60;
+            }
+
+            int minDiff = minute - totalLength;
+            if (minDiff < 0) {
+                minDiff = 60 - (totalLength - minute);
+                if (minDiff < 0) {
+                    minDiff = 60 + minDiff;
+                    hour -= 1;
+                }
+            }
+            if (hour < 0) {
+                hour = 24 + hour;
+            }
+
+            startTime = hour + ":" + minDiff;
+            if (hour < 10 && minDiff < 10) {
+                startTime = "0" + hour + ":0" + minDiff;
+            }
+            else if (hour < 10) {
+                startTime = "0" + hour + ":" + minDiff;
+            }
+            else if (minDiff < 10) {
+                startTime = hour + ":0" + minDiff;
+            }
+            return startTime;
+        }
+
     }
     @Override
     public void onAttach(Context context) {
@@ -83,16 +121,6 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

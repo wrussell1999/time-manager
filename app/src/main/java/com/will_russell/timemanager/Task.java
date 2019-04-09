@@ -29,4 +29,12 @@ public class Task {
     public void setLength(Integer length) {
         this.length = length;
     }
+
+    public static Integer getTotalLength() {
+        Integer totalLength = 0;
+        for (int i = 0; i < tasksList.size(); i++) {
+            totalLength += tasksList.get(i).length;
+        }
+        return totalLength;
+    }
 }

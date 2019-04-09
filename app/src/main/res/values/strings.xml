@@ -11,7 +11,8 @@
     <string name="time_to_leave">Time to leave</string>
 
     <!-- Placeholders for outputs-->
-    <string name="placeholder_start_time">Start time:</string>
-    <string name="placeholder_total_time">Total time for tasks: 0 minutes</string>
-    <string name="placeholder_tasks_total">Total number of tasks: </string>
+    <string name="placeholder_start_time">Start time:\u0020</string>
+    <string name="placeholder_total_time">Total time for tasks:\u0020</string>
+    <string name="placeholder_minute">\u0020minutes</string>
+    <string name="placeholder_tasks_total">Total number of tasks:\u0020</string>
 </resources>
