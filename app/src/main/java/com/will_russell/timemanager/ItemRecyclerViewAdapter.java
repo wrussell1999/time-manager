@@ -11,6 +11,7 @@ import com.will_russell.timemanager.TaskFragment.OnListFragmentInteractionListen
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
+    private boolean viewExpanded = false;
     private final OnListFragmentInteractionListener mListener;
 
     public ItemRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
@@ -32,9 +33,17 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.taskLengthView.setText(Task.tasksList.get(position).getLength().toString() + " minutes");
         holder.bind(holder.mItem);
         holder.mView.setOnClickListener(v -> {
+            if (viewExpanded) {
+                for(int i = 0; i < Task.tasksList.size(); i++) {
+                    Task.tasksList.get(i).setExpanded(false);
+                }
+                notifyDataSetChanged();
+                viewExpanded = false;
+            }
             boolean expanded = holder.mItem.isExpanded();
             holder.mItem.setExpanded(!expanded);
             notifyItemChanged(position);
+            viewExpanded = true;
         });
     }
 
