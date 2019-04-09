@@ -17,4 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark" />
 
+    <style name="AddTaskTheme" parent="AppTheme">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
 </resources>

@@ -1,6 +1,7 @@
 package com.will_russell.timemanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -10,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
 
 public class DetailsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
     private OnFragmentInteractionListener mListener;
 
+    private TimePicker timePicker;
     private Handler uiHandler;
     private TextView startView;
     private TextView totalTimeView;
@@ -36,7 +38,7 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
-        TimePicker timePicker = view.findViewById(R.id.time_to_leave_picker);
+        timePicker = view.findViewById(R.id.time_to_leave_picker);
         timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(this);
 
@@ -51,6 +53,7 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         uiHandler.post(new UIThread(hourOfDay, minute));
     }
+
     class UIThread implements Runnable {
         private int hourOfDay;
         private int minute;
@@ -110,6 +113,8 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
         }
 
     }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -122,7 +127,6 @@ public class DetailsFragment extends Fragment implements TimePicker.OnTimeChange
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,21 +23,28 @@ public class AddTask extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getData();
                 finish();
             }
         });
     }
 
-    private void getData() {
-        TextInputEditText name = (TextInputEditText) findViewById(R.id.name_input);
-        TextInputEditText length = (TextInputEditText) findViewById(R.id.duration_input);
+    private boolean getData() {
+        TextInputEditText name = findViewById(R.id.name_edittext);
+        TextInputEditText length = findViewById(R.id.duration_edittext);
+        if (name.getText().toString().equals("") || length.getText().toString().equals("")) {
+            return false;
+        }
         Task task = new Task(name.getText().toString(), Integer.valueOf(length.getText().toString()));
-        Tasks.tasks.add(task);
+        Task.tasksList.add(task);
+        Toast toast = Toast.makeText(getApplicationContext(), "Task added!", Toast.LENGTH_SHORT);
+        toast.show();
+        return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish(); // close this activity as oppose to navigating up
+        finish();
         return false;
     }
 }
