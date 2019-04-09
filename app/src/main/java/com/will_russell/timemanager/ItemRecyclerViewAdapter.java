@@ -28,7 +28,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = Task.tasksList.get(position);
         holder.taskNameView.setText(Task.tasksList.get(position).getName());
-        holder.taskLengthView.setText(Task.tasksList.get(position).getLength().toString());
+        holder.taskLengthView.setText(Task.tasksList.get(position).getLength().toString() + " minutes");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

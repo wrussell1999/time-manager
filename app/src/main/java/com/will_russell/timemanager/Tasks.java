@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,19 +19,8 @@ import android.view.ViewGroup;
 
 public class Tasks extends AppCompatActivity {
 
-    /**
-     * The {@link PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +49,39 @@ public class Tasks extends AppCompatActivity {
         Task.tasksList.add(new Task("Shopping", 25));
         Task.tasksList.add(new Task("Cooking", 26));
         Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+        Task.tasksList.add(new Task("Washing", 20));
+        Task.tasksList.add(new Task("Shopping", 25));
+        Task.tasksList.add(new Task("Cooking", 26));
+        Task.tasksList.add(new Task("Cleaning", 23));
+
     }
 
     private void addTaskIntent() {
@@ -91,7 +111,7 @@ public class Tasks extends AppCompatActivity {
         public PlaceholderFragment() {
         }
 
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance() {
             PlaceholderFragment fragment = new PlaceholderFragment();
             return fragment;
         }
