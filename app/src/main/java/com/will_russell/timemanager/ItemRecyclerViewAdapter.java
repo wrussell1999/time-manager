@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.will_russell.timemanager.TaskFragment.OnListFragmentInteractionListener;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
@@ -45,6 +46,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             notifyItemChanged(position);
             viewExpanded = true;
         });
+
+        holder.editButton.setOnClickListener(v -> {
+            holder.editTask(position);
+        });
+
+        holder.removeButton.setOnClickListener(v -> {
+            holder.removeTask(position);
+        });
     }
 
     @Override
@@ -57,6 +66,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public final TextView taskNameView;
         public final TextView taskLengthView;
         public final View subItem;
+        public final MaterialButton editButton;
+        public final MaterialButton removeButton;
+
         public Task mItem;
 
         public ViewHolder(View view) {
@@ -65,11 +77,24 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             taskNameView = view.findViewById(R.id.item_number);
             taskLengthView = view.findViewById(R.id.content);
             subItem = view.findViewById(R.id.options);
+            editButton = view.findViewById(R.id.edit_button);
+            removeButton = view.findViewById(R.id.remove_button);
         }
 
         private void bind(Task task) {
             boolean expanded = task.isExpanded();
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
+        }
+
+        private void editTask(int position) {
+            Task task = Task.tasksList.get(position);
+
+        }
+
+        private void removeTask(int position) {
+            Task.tasksList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, getItemCount());
         }
     }
 }

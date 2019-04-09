@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Task {
 
+    private int id;
     private String name;
     private Integer length;
     private boolean expanded;
