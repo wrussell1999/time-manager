@@ -19,24 +19,22 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater
+                .from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = Task.tasksList.get(position);
         holder.taskNameView.setText(Task.tasksList.get(position).getName());
         holder.taskLengthView.setText(Task.tasksList.get(position).getLength().toString() + " minutes");
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
+        holder.bind(holder.mItem);
+        holder.mView.setOnClickListener(v -> {
+            boolean expanded = holder.mItem.isExpanded();
+            holder.mItem.setExpanded(!expanded);
+            notifyItemChanged(position);
         });
     }
 
@@ -49,6 +47,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public final View mView;
         public final TextView taskNameView;
         public final TextView taskLengthView;
+        public final View subItem;
         public Task mItem;
 
         public ViewHolder(View view) {
@@ -56,11 +55,12 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mView = view;
             taskNameView = view.findViewById(R.id.item_number);
             taskLengthView = view.findViewById(R.id.content);
+            subItem = view.findViewById(R.id.options);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + taskLengthView.getText() + "'";
+        private void bind(Task task) {
+            boolean expanded = task.isExpanded();
+            subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
         }
     }
 }

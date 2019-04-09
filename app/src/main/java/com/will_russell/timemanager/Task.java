@@ -1,13 +1,15 @@
 package com.will_russell.timemanager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Task {
 
     private String name;
     private Integer length;
+    private boolean expanded;
 
-    public static ArrayList<Task> tasksList = new ArrayList<>();
+    public static List<Task> tasksList = new ArrayList<>();
 
     public Task(String name, Integer length) {
         this.name = name;
@@ -36,5 +38,13 @@ public class Task {
             totalLength += tasksList.get(i).length;
         }
         return totalLength;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
     }
 }

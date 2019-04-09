@@ -20,15 +20,14 @@ import android.view.ViewGroup;
 public class Tasks extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -44,79 +43,12 @@ public class Tasks extends AppCompatActivity {
                 addTaskIntent();
             }
         });
-
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-        Task.tasksList.add(new Task("Washing", 20));
-        Task.tasksList.add(new Task("Shopping", 25));
-        Task.tasksList.add(new Task("Cooking", 26));
-        Task.tasksList.add(new Task("Cleaning", 23));
-
+        for (int i = 0; i < 1; i++) {
+            Task.tasksList.add(new Task("Washing", 20));
+            Task.tasksList.add(new Task("Shopping", 25));
+            Task.tasksList.add(new Task("Cooking", 26));
+            Task.tasksList.add(new Task("Cleaning", 23));
+        }
     }
 
     private void addTaskIntent() {
@@ -126,25 +58,15 @@ public class Tasks extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_tasks, menu);
-        return true;
-    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() {
-        }
+        public PlaceholderFragment() {}
 
         public static PlaceholderFragment newInstance() {
             PlaceholderFragment fragment = new PlaceholderFragment();

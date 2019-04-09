@@ -4,19 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 public class TaskFragment extends Fragment {
 
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
 
@@ -40,20 +37,13 @@ public class TaskFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-
-            if (mColumnCount <= 1) {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-                        recyclerView.setLayoutManager(layoutManager);
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setHasFixedSize(true);
-
+            ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(true);
             recyclerView.setAdapter(new ItemRecyclerViewAdapter(mListener));
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
