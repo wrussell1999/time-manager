@@ -15,12 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class Tasks extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
+    private final int ADD_TASK_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +57,16 @@ public class Tasks extends AppCompatActivity {
     private void addTaskIntent() {
         Intent intent = new Intent(this, AddTask.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_TASK_REQUEST);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-
+        if (requestCode == ADD_TASK_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
     }
 

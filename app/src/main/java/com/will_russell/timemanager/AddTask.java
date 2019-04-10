@@ -24,6 +24,7 @@ public class AddTask extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getData();
+                TaskFragment.notifyUpdate();
                 finish();
             }
         });
