@@ -2,6 +2,7 @@ package com.will_russell.timemanager;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
         private void editTask(int position) {
             Task task = Task.tasksList.get(position);
-
+            /*
+            Send object to AddTask Activity
+            Rename Activity to "Edit Task"
+            Edit data in object, inside tasksList
+            Return to mainActivity
+            notifyAdapter of the change
+            */
         }
 
         private void removeTask(int position) {

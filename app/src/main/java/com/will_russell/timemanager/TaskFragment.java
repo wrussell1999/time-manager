@@ -1,6 +1,7 @@
 package com.will_russell.timemanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TaskFragment extends Fragment {
+public class TaskFragment extends Fragment implements EditTaskListener {
 
     private OnListFragmentInteractionListener mListener;
     private static ItemRecyclerViewAdapter adapter;
@@ -52,6 +53,14 @@ public class TaskFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onEditClick(Task task) {
+        Intent intent = new Intent(getActivity(), AddTask.class);
+        intent.putExtra("Task", task);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public interface OnListFragmentInteractionListener {
