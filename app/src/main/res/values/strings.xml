@@ -4,8 +4,13 @@
     <string name="overview_title">Overview</string>
     <string name="add_task_title">Add New Task</string>
     <string name="edit_task_title">Edit Task</string>
-    <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Settings</string>
+    <string name="action_save_data">Save Data</string>
+    <string name="action_import_data">Import Data to CSV</string>
+    <string name="action_export_data">Export Data to CSV</string>
 
     <string name="task_name_title">Task</string>
     <string name="task_length_title">Length (minutes)</string>

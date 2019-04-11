@@ -13,3 +13,8 @@ Outputs:
 - Time to start first task
 - Times to start each task
 - Total time to complete all tasks
+
+
+## Future ideas
+- Export tasks as CSV and import them
+- Be able to use Google Drive to store tasks - for multiple devices 

@@ -43,12 +43,23 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
+        android:backgroundTint="@color/colorPrimaryDark"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/bar"
+        app:layout_anchorGravity="bottom|end"
+        app:tint="@color/white"
+        app:backgroundTint="@color/colorAccent"
         app:srcCompat="@drawable/add_icon" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

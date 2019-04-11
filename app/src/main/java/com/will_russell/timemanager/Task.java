@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Task {
 
-    private int id;
     private String name;
     private Integer length;
     private boolean expanded;
@@ -47,5 +46,10 @@ public class Task {
 
     public boolean isExpanded() {
         return expanded;
+    }
+
+    @Override
+    public String toString() {
+        return name + "," + length;
     }
 }
