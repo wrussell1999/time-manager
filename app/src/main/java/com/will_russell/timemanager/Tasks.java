@@ -75,7 +75,6 @@ public class Tasks extends AppCompatActivity {
         if (prefs.getBoolean("firstrun", true)) {
             String filename = "task_data.csv";
             File file = new File(getApplicationContext().getFilesDir(), filename);
-            //
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }
@@ -86,58 +85,40 @@ public class Tasks extends AppCompatActivity {
     }
 
     public void readData() {
-        if (ContextCompat.checkSelfPermission(Tasks.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Tasks.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(Tasks.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        READ_ACCESS);
+        try {
+            FileInputStream in =  openFileInput(FILENAME);
+            InputStreamReader inputStreamReader = new InputStreamReader(in);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String input = "";
+            Task.tasksList.clear();
+            while ((input = reader.readLine()) != null) {
+                input = input.trim();
+                String[] taskString = input.split(",");
+                Task.tasksList.add(new Task(taskString[0], Integer.valueOf(taskString[1])));
             }
-        } else {
-            try {
-                FileInputStream in =  openFileInput(FILENAME);
-                InputStreamReader inputStreamReader = new InputStreamReader(in);
-                BufferedReader reader = new BufferedReader(inputStreamReader);
-                String input = "";
-                Task.tasksList.clear();
-                while ((input = reader.readLine()) != null) {
-                    input = input.trim();
-                    String[] taskString = input.split(",");
-                    Task.tasksList.add(new Task(taskString[0], Integer.valueOf(taskString[1])));
-                }
-                reader.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            System.out.println("READ");
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void saveData(Context context) {
-        if (ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions((Activity) context,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_ACCESS);
+
+        FileOutputStream outputStream;
+        try {
+            outputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            String output = "";
+            for (int i = 0; i < Task.tasksList.size(); i++) {
+                output = Task.tasksList.get(i).getName() + "," + Task.tasksList.get(i).getLength() + System.getProperty("line.separator");
+                System.out.println("Output: " + output);
+                outputStream.write(output.getBytes());
             }
-        } else {
-            FileOutputStream outputStream;
-            try {
-                outputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                String output = "";
-                for (int i = 0; i < Task.tasksList.size(); i++) {
-                    output = Task.tasksList.get(i).getName() + "," + Task.tasksList.get(i).getLength();
-                    outputStream.write(output.getBytes());
-                }
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            outputStream.flush();
+            outputStream.close();
+            System.out.println("SAVED");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -203,7 +184,7 @@ public class Tasks extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_details, container, false);
             return rootView;
         }
     }
@@ -219,10 +200,10 @@ public class Tasks extends AppCompatActivity {
             Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = TaskFragment.newInstance();
+                    fragment = DetailsFragment.newInstance();
                     break;
                 case 1:
-                    fragment = DetailsFragment.newInstance();
+                    fragment = TaskFragment.newInstance();
                     break;
             }
             return fragment;
