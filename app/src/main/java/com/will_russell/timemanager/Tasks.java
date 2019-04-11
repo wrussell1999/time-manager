@@ -44,7 +44,7 @@ public class Tasks extends AppCompatActivity {
     private final int READ_ACCESS = 3;
     private final static int WRITE_ACCESS = 4;
 
-    private final static String FILENAME = "task_data.csv";
+    public final static String FILENAME = "task_data.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +103,11 @@ public class Tasks extends AppCompatActivity {
         }
     }
 
-    public static void saveData(Context context) {
+    public static void saveData(Context context, String filename) {
 
         FileOutputStream outputStream;
         try {
-            outputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
             String output = "";
             for (int i = 0; i < Task.tasksList.size(); i++) {
                 output = Task.tasksList.get(i).getName() + "," + Task.tasksList.get(i).getLength() + System.getProperty("line.separator");
@@ -120,6 +120,10 @@ public class Tasks extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void exportData() {
+        
     }
 
     @Override
@@ -157,7 +161,7 @@ public class Tasks extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_save:
-                saveData(this);
+                saveData(this, FILENAME);
                 return true;
             case R.id.action_import:
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -166,6 +170,7 @@ public class Tasks extends AppCompatActivity {
                 startActivityForResult(intent, IMPORT_FILE_REQUEST);
                 return true;
             case R.id.action_export:
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
