@@ -38,6 +38,7 @@ public class AddTask extends AppCompatActivity {
         fab.setOnClickListener(v -> {
             getData(position);
             TaskFragment.notifyUpdate();
+            Tasks.saveData(this);
             finish();
         });
     }

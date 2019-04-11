@@ -4,14 +4,19 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,15 +24,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 
 
 public class Tasks extends AppCompatActivity {
@@ -39,8 +41,10 @@ public class Tasks extends AppCompatActivity {
 
     private final int ADD_TASK_REQUEST = 1;
     private final int IMPORT_FILE_REQUEST = 2;
+    private final int READ_ACCESS = 3;
+    private final static int WRITE_ACCESS = 4;
 
-    private final String FILENAME = "task_data.csv";
+    private final static String FILENAME = "task_data.csv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class Tasks extends AppCompatActivity {
         if (prefs.getBoolean("firstrun", true)) {
             String filename = "task_data.csv";
             File file = new File(getApplicationContext().getFilesDir(), filename);
+            //
             prefs.edit().putBoolean("firstrun", false).commit();
         }
     }
@@ -81,35 +86,58 @@ public class Tasks extends AppCompatActivity {
     }
 
     public void readData() {
-        try {
-            FileInputStream in =  openFileInput(FILENAME);
-            InputStreamReader inputStreamReader = new InputStreamReader(in);
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String input = "";
-            Task.tasksList.clear();
-            while ((input = reader.readLine()) != null) {
-                input = input.trim();
-                String[] taskString = input.split(",");
-                Task.tasksList.add(new Task(taskString[0], Integer.valueOf(taskString[1])));
+        if (ContextCompat.checkSelfPermission(Tasks.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(Tasks.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            } else {
+                ActivityCompat.requestPermissions(Tasks.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        READ_ACCESS);
             }
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            try {
+                FileInputStream in =  openFileInput(FILENAME);
+                InputStreamReader inputStreamReader = new InputStreamReader(in);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                String input = "";
+                Task.tasksList.clear();
+                while ((input = reader.readLine()) != null) {
+                    input = input.trim();
+                    String[] taskString = input.split(",");
+                    Task.tasksList.add(new Task(taskString[0], Integer.valueOf(taskString[1])));
+                }
+                reader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void saveData() {
-        FileOutputStream outputStream;
-        try {
-            outputStream = openFileOutput(FILENAME, getApplicationContext().MODE_PRIVATE);
-            String output = "";
-            for (int i = 0; i < Task.tasksList.size(); i++) {
-                output = Task.tasksList.get(i).getName() + "," + Task.tasksList.get(i).getLength();
-                outputStream.write(output.getBytes());
+    public static void saveData(Context context) {
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            } else {
+                ActivityCompat.requestPermissions((Activity) context,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_ACCESS);
             }
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            FileOutputStream outputStream;
+            try {
+                outputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+                String output = "";
+                for (int i = 0; i < Task.tasksList.size(); i++) {
+                    output = Task.tasksList.get(i).getName() + "," + Task.tasksList.get(i).getLength();
+                    outputStream.write(output.getBytes());
+                }
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -118,6 +146,22 @@ public class Tasks extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMPORT_FILE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             Uri fileUri = data.getData();
+            // Check for valid CSV else show AlertDialog
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case WRITE_ACCESS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                    return;
+                }
+                return;
+            }
         }
     }
 
@@ -132,10 +176,13 @@ public class Tasks extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_save:
-                saveData();
+                saveData(this);
                 return true;
             case R.id.action_import:
-                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), IMPORT_FILE_REQUEST);
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/csv");
+                startActivityForResult(intent, IMPORT_FILE_REQUEST);
                 return true;
             case R.id.action_export:
                 return true;
