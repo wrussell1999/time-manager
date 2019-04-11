@@ -11,4 +11,7 @@
     <item
         android:id="@+id/action_export"
         android:title="@string/action_export_data"/>
+    <item
+        android:id="@+id/action_clear_all_tasks"
+        android:title="@string/action_clear_all_taks" />
 </menu>

@@ -11,6 +11,7 @@
     <string name="action_save_data">Save Data</string>
     <string name="action_import_data">Import Data to CSV</string>
     <string name="action_export_data">Export Data to CSV</string>
+    <string name="action_clear_all_taks">Clear all tasks</string>
 
     <string name="task_name_title">Task</string>
     <string name="task_length_title">Length (minutes)</string>
@@ -19,7 +20,7 @@
     <!-- Toast messages -->
     <string name="toast_add_task">Task added!</string>
     <string name="toast_edit_task">Task modified!</string>
-
+    <string name="toast_write_permission">Storage permissions are needed to download files</string>
     <!-- Placeholders for outputs-->
     <string name="placeholder_start_time">Start time:\u0020</string>
     <string name="placeholder_total_time">Total time for tasks:\u0020</string>
