@@ -1,6 +1,5 @@
 package com.will_russell.timemanager;
 
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;

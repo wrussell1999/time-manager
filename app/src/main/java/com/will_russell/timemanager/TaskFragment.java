@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TaskFragment extends Fragment implements EditTaskListener {
+public class TaskFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
     private static ItemRecyclerViewAdapter adapter;
@@ -53,14 +53,6 @@ public class TaskFragment extends Fragment implements EditTaskListener {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onEditClick(Task task) {
-        Intent intent = new Intent(getActivity(), AddTask.class);
-        intent.putExtra("Task", task);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     public interface OnListFragmentInteractionListener {

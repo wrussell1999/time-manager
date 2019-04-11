@@ -49,11 +49,16 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         });
 
         holder.editButton.setOnClickListener(v -> {
-            holder.editTask(position);
+            Intent intent = new Intent(holder.mView.getContext(), AddTask.class);
+            intent.putExtra("task_index", position);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            holder.mView.getContext().startActivity(intent);
         });
 
         holder.removeButton.setOnClickListener(v -> {
-            holder.removeTask(position);
+            Task.tasksList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, getItemCount());
         });
     }
 
@@ -85,23 +90,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         private void bind(Task task) {
             boolean expanded = task.isExpanded();
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-        }
-
-        private void editTask(int position) {
-            Task task = Task.tasksList.get(position);
-            /*
-            Send object to AddTask Activity
-            Rename Activity to "Edit Task"
-            Edit data in object, inside tasksList
-            Return to mainActivity
-            notifyAdapter of the change
-            */
-        }
-
-        private void removeTask(int position) {
-            Task.tasksList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, getItemCount());
         }
     }
 }
