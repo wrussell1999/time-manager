@@ -39,12 +39,10 @@ public class Tasks extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(v -> {
                 addTaskIntent();
-            }
         });
+        // Remove me
         for (int i = 0; i < 1; i++) {
             Task.tasksList.add(new Task("Washing", 20));
             Task.tasksList.add(new Task("Shopping", 25));
@@ -55,19 +53,9 @@ public class Tasks extends AppCompatActivity {
 
     private void addTaskIntent() {
         Intent intent = new Intent(this, AddTask.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent, ADD_TASK_REQUEST);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ADD_TASK_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        }
-    }
 
     public static class PlaceholderFragment extends Fragment {
 
