@@ -12,6 +12,7 @@
     <style name="ActionButtonOverflow" parent="android:style/Widget.Material.Light.ActionButton.Overflow">
         <item name="android:tint">@color/white</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

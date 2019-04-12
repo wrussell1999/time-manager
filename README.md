@@ -16,6 +16,9 @@ Outputs:
 
 
 ## Future ideas
-- Export tasks as CSV and import them
+- Export tasks as CSV
+- Import CSVs
 - Be able to use Google Drive to store tasks - for multiple devices 
 - Dark theme
+- Checkbox fades item in list
+- Material Card around expanded tasks
