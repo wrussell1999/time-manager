@@ -2,13 +2,9 @@ package com.will_russell.timemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
-
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
-
 import com.google.android.material.bottomappbar.BottomAppBar;
 
 public class AboutActivity extends AppCompatActivity {

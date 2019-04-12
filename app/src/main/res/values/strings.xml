@@ -17,7 +17,7 @@
 
     <string name="task_name_title">Task</string>
     <string name="task_length_title">Length (minutes)</string>
-    <string name="time_to_leave">Time to leave</string>
+    <string name="time_to_leave">TIME TO LEAVE</string>
 
     <!-- Toast messages -->
     <string name="toast_add_task">Task added!</string>
@@ -25,6 +25,7 @@
     <string name="toast_write_permission">Storage permissions are needed to download files</string>
     <string name="toast_import_invalid">Invalid file format!</string>
     <string name="toast_length_invalid">Length field invalid!</string>
+
     <!-- Placeholders for outputs-->
     <string name="placeholder_start_time">Start time:\u0020</string>
     <string name="placeholder_total_time">Total time for tasks:\u0020</string>
