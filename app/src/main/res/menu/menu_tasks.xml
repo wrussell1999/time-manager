@@ -14,4 +14,7 @@
     <item
         android:id="@+id/action_clear_all_tasks"
         android:title="@string/action_clear_all_taks" />
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/action_about" />
 </menu>

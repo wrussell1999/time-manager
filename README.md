@@ -18,3 +18,4 @@ Outputs:
 ## Future ideas
 - Export tasks as CSV and import them
 - Be able to use Google Drive to store tasks - for multiple devices 
+- Dark theme

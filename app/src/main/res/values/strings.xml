@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Time Manager</string>
     <string name="tasks_title">Tasks</string>
+    <string name="title_activity_about_activity">About</string>
     <string name="overview_title">Overview</string>
     <string name="add_task_title">Add New Task</string>
     <string name="edit_task_title">Edit Task</string>
@@ -12,6 +13,7 @@
     <string name="action_import_data">Import Data to CSV</string>
     <string name="action_export_data">Export Data to CSV</string>
     <string name="action_clear_all_taks">Clear all tasks</string>
+    <string name="action_about">About</string>
 
     <string name="task_name_title">Task</string>
     <string name="task_length_title">Length (minutes)</string>
@@ -21,9 +23,17 @@
     <string name="toast_add_task">Task added!</string>
     <string name="toast_edit_task">Task modified!</string>
     <string name="toast_write_permission">Storage permissions are needed to download files</string>
+    <string name="toast_import_invalid">Invalid file format!</string>
+    <string name="toast_length_invalid">Length field invalid!</string>
     <!-- Placeholders for outputs-->
     <string name="placeholder_start_time">Start time:\u0020</string>
     <string name="placeholder_total_time">Total time for tasks:\u0020</string>
     <string name="placeholder_minute">\u0020minutes</string>
     <string name="placeholder_tasks_total">Total number of tasks:\u0020</string>
+
+    <!-- About page -->
+    <string name="made_by">Made by William Russell</string>
+    <string name="github">GitHub</string>
+    <string name="twitter">Twitter</string>
+
 </resources>

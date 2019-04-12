@@ -13,17 +13,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,9 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
-
 public class Tasks extends AppCompatActivity {
-
 
     private SharedPreferences prefs = null;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -96,7 +97,6 @@ public class Tasks extends AppCompatActivity {
                 String[] taskString = input.split(",");
                 Task.tasksList.add(new Task(taskString[0], Integer.valueOf(taskString[1])));
             }
-            System.out.println("READ");
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,26 +104,37 @@ public class Tasks extends AppCompatActivity {
     }
 
     public static void saveData(Context context, String filename) {
-
+        System.out.println(filename);
         FileOutputStream outputStream;
         try {
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
             String output = "";
             for (int i = 0; i < Task.tasksList.size(); i++) {
                 output = Task.tasksList.get(i).getName() + "," + Task.tasksList.get(i).getLength() + System.getProperty("line.separator");
-                System.out.println("Output: " + output);
                 outputStream.write(output.getBytes());
             }
             outputStream.flush();
             outputStream.close();
-            System.out.println("SAVED");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void exportData() {
-        
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, getResources().getString(R.string.toast_write_permission), Toast.LENGTH_SHORT).show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        WRITE_ACCESS);
+            }
+        } else {
+        }
     }
 
     @Override
@@ -131,7 +142,21 @@ public class Tasks extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMPORT_FILE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             Uri fileUri = data.getData();
-            // Check for valid CSV else show AlertDialog
+            String[] lines = fileUri.toString().split("\\r?\\n");
+            Task.tasksList.clear();
+            for (int i = 0; i < lines.length; i++) {
+                String line = lines[i];
+                String[] entries = line.split(",");
+                if (entries.length != 2) {
+                    Toast.makeText(this, getResources().getString(R.string.toast_import_invalid), Toast.LENGTH_LONG).show();
+                }
+                try {
+                    Task.tasksList.add(new Task(entries[0], Integer.valueOf(entries[1])));
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, getResources().getString(R.string.toast_length_invalid), Toast.LENGTH_LONG);
+                }
+            }
+            TaskFragment.notifyUpdate();
         }
     }
 
@@ -139,14 +164,13 @@ public class Tasks extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case WRITE_ACCESS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    return;
-                }
+        case WRITE_ACCESS:
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            } else {
                 return;
             }
+            return;
         }
     }
 
@@ -159,19 +183,26 @@ public class Tasks extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
         switch (id) {
             case R.id.action_save:
                 saveData(this, FILENAME);
                 return true;
             case R.id.action_import:
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("text/csv");
                 startActivityForResult(intent, IMPORT_FILE_REQUEST);
                 return true;
             case R.id.action_export:
-
+                exportData();
                 return true;
+            case R.id.action_clear_all_tasks:
+                Task.tasksList.clear();
+                TaskFragment.notifyUpdate();
+            case R.id.action_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }

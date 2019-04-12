@@ -2,6 +2,7 @@ package com.will_russell.timemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -62,8 +63,7 @@ public class AddTask extends AppCompatActivity {
             Task.tasksList.set(position, task);
             toastMessage = getResources().getString(R.string.toast_edit_task);
         }
-        Toast toast = Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT);
-        toast.show();
+        Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
         return true;
     }
 
