@@ -28,16 +28,11 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/mtrl_card_spacing"
-            android:layout_marginTop="@dimen/mtrl_card_spacing"
-            android:layout_marginRight="@dimen/mtrl_card_spacing"
-            android:layout_marginBottom="@dimen/mtrl_card_spacing"
+            android:layout_margin="@dimen/mtrl_card_spacing"
             android:minHeight="100dp"
             android:padding="16dp"
-            android:paddingTop="16dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -46,7 +41,10 @@
                     android:id="@+id/time_to_start_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_margin="@dimen/details_ouput"
+                    android:layout_marginBottom="4dp"
+                    android:paddingTop="@dimen/details_ouput"
+                    android:paddingLeft="@dimen/details_ouput"
                     android:textSize="@dimen/output_text_size"
                     android:textColor="@color/textColor"
                     android:text="@string/placeholder_start_time"/>
@@ -54,7 +52,10 @@
                     android:id="@+id/total_time_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_marginTop="4dp"
+                    android:layout_margin="@dimen/details_ouput"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="@dimen/details_ouput"
                     android:textSize="@dimen/output_text_size"
                     android:textColor="@color/textColor"
                     android:text="@string/placeholder_total_time"/>
@@ -63,13 +64,15 @@
                     android:id="@+id/total_tasks_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
+                    android:layout_marginTop="4dp"
+                    android:layout_margin="@dimen/details_ouput"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:paddingBottom="@dimen/details_ouput"
+                    android:paddingLeft="@dimen/details_ouput"
                     android:textSize="@dimen/output_text_size"
                     android:textColor="@color/textColor"
                     android:text="@string/placeholder_tasks_total"/>
-
             </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
 </FrameLayout>
