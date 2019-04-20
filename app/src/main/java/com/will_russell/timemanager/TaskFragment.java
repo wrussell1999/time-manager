@@ -35,7 +35,7 @@ public class TaskFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setHasFixedSize(true);
-        adapter = new ItemRecyclerViewAdapter(mListener);
+        adapter = new ItemRecyclerViewAdapter(mListener, getContext());
         recyclerView.setAdapter(adapter);
         return view;
     }

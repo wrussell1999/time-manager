@@ -104,7 +104,6 @@ public class Tasks extends AppCompatActivity {
     }
 
     public static void saveData(Context context, String filename) {
-        System.out.println(filename);
         FileOutputStream outputStream;
         try {
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
@@ -201,9 +200,11 @@ public class Tasks extends AppCompatActivity {
             case R.id.action_clear_all_tasks:
                 Task.tasksList.clear();
                 TaskFragment.notifyUpdate();
+                return true;
             case R.id.action_about:
                 intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -2,6 +2,7 @@ package com.will_russell.timemanager;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,11 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     private boolean viewExpanded = false;
     private final OnListFragmentInteractionListener mListener;
+    Context context;
 
-    public ItemRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+    public ItemRecyclerViewAdapter(OnListFragmentInteractionListener listener, Context context) {
         mListener = listener;
+        this.context = context;
     }
 
     @Override
@@ -57,6 +60,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
         holder.removeButton.setOnClickListener(v -> {
             Task.tasksList.remove(position);
+            Tasks.saveData(context, Tasks.FILENAME);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, getItemCount());
         });
